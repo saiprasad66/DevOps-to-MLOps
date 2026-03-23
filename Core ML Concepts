@@ -1,0 +1,134 @@
+✅ 1. What is a Model? (Architecture + Weights)
+Think of a model like a function f(x) that transforms input into output.
+Example:
+Input: an image
+Output: "cat" or "dog"
+
+To do this, a model has two key components:
+
+✅ 1. Architecture — the design / blueprint
+This defines how the model is structured.
+Examples:
+How many layers?
+What type of layers? (Dense, Convolutional, Attention, RNN, etc.)
+How data flows through layers?
+
+Analogy:
+Architecture is like the shape of a building — number of floors, layout, connections.
+
+✅ 2. Weights — the learned values
+Weights are numbers inside the model that get updated during training.
+
+They capture patterns.
+After training, weights are what make the model "smart".
+Bigger or deeper models mean more weights.
+
+Analogy:
+Weights are the furniture inside the building that gets arranged based on experience.
+
+✅ 2. Training vs Inference
+✅ Training
+This is the learning phase.
+
+You show the model lots of example data.
+It predicts → makes mistakes → adjusts weights.
+This cycle continues for multiple epochs (passes through data).
+
+You need GPU/TPU for training.
+
+✅ Inference
+This is the usage phase.
+
+Model is already trained.
+You only feed input → get output.
+No learning happens here.
+Much cheaper than training.
+
+You usually need CPU or sometimes GPU (for speed).
+
+✅ 3. Tensors (Basic Idea)
+Tensor = an n-dimensional array.
+You already know:
+
+Scalar → single number
+Vector → 1D array
+Matrix → 2D array
+
+A tensor extends this idea to N dimensions.
+Examples:
+
+Image → 3D tensor (height × width × channels)
+Batch of images → 4D tensor
+
+Why ML uses tensors?
+Because GPU operations (matrix multiplications) are extremely fast when data is in tensor format.
+
+✅ 4. Overfitting vs Underfitting
+✅ Overfitting — model memorizes
+
+Performs well on training data
+Performs poorly on new data
+Means: too complex for the amount of data
+
+Analogy:
+A student memorizes past exam answers instead of understanding concepts.
+
+✅ Underfitting — model doesn’t learn enough
+
+Performs poorly on both training & testing data
+Means: model is too simple or not trained enough
+
+Analogy:
+A student didn't even study enough to learn basics.
+
+✅ 5. Batch Size, Epochs, Learning Rate
+These are core training parameters you will see in ML pipelines (MLflow, Kubeflow, SageMaker, Azure ML).
+
+✅ 1. Batch Size
+How many samples you feed into the model at once.
+Example:
+
+Dataset size = 10,000 images
+Batch size = 100
+100 images are processed at a time
+
+Trade-off:
+
+Small batch → slower but more accurate
+Large batch → faster but may generalize poorly
+
+
+✅ 2. Epoch
+1 epoch = model sees the entire dataset once.
+If you run:
+epochs = 10
+
+It means the model will see your whole dataset 10 times during training.
+
+✅ 3. Learning Rate
+How big the steps are when updating weights.
+Think of it like the speed of learning:
+
+High LR → fast learning, but risks overshooting (unstable)
+Low LR → slow but stable learning
+
+Most important hyperparameter in ML.
+
+✅ Bringing It All Together (MLOps View)
+As an MLOps engineer, you don’t need to build models from scratch — but you must understand what your pipelines are orchestrating:
+✅ Training Pipeline Stages
+
+Data ingestion → feature store
+Model training → weights updated
+Hyperparameter tuning (batch size, epochs, learning rate)
+Validation (check for overfitting/underfitting)
+Model packaging (ONNX, TorchScript, Pickle)
+Model registry (MLflow, Azure ML registry)
+
+✅ Inference Pipeline Stages
+
+Model loading
+Preprocess request → convert to tensor
+Run inference
+Postprocess output → JSON response
+Logging + monitoring (latency, accuracy drift)
