@@ -1,0 +1,86 @@
+
+# GPU vs CPU – Core Concepts Explained
+
+This repository explains the fundamental differences between **CPUs** and **GPUs**, focusing on architecture, memory, performance, and real‑world use cases. 
+It is suitable for beginners and anyone learning how hardware impacts machine learning and computation.
+
+***
+
+## 1. CPU Architecture – Sequential Processing
+
+*   CPUs have a **small number of powerful cores** designed for complex, sequential tasks.
+*   Even high‑end CPUs (8, 16, or 32 cores) have **limited parallel throughput**.
+*   Best suited for:
+    *   Operating system tasks
+    *   Application logic
+    *   Branch-heavy operations
+
+**Summary:** CPUs excel at doing *fewer* tasks *very efficiently*, one after another.
+
+***
+
+## 2. GPU Architecture – Parallel Processing
+
+*   GPUs contain **thousands of smaller, specialized cores** optimized for parallel computation.
+*   High-end GPUs (like from Nvidia) may exceed **10,000+ cores**.
+*   Ideal for:
+    *   Matrix multiplications
+    *   Rendering graphics
+    *   Training machine learning models
+
+**Why GPUs are faster for ML:**  
+Most ML operations are matrices/tensors, which can be split across thousands of parallel threads — something CPUs cannot match.
+
+***
+
+## 3. Memory Structure – VRAM
+
+*   GPUs use **VRAM**, a high-speed memory located directly on the GPU.
+*   VRAM benefits:
+    *   Faster data access
+    *   Higher bandwidth
+    *   Less dependency on system RAM
+
+This architecture significantly boosts performance during rendering and ML training.
+
+***
+
+## 4. Real-World Use Cases
+
+### CPU
+
+*   Can load images, render content, and run ML models.
+*   However, performance is much slower for parallel workloads.
+
+### GPU
+
+*   Required for:
+    *   Real-time gaming
+    *   High-resolution graphics
+    *   Large language models
+    *   Fast ML training
+
+GPUs enable **low latency** and **high throughput** where CPUs struggle.
+
+***
+
+## 5. Key Takeaways
+
+*   A **GPU cannot function independently**.  
+    It always needs a **CPU acting as the master controller**.
+
+*   For learning and experimentation:
+    *   Recommended: **Cloud GPU VMs** (AWS, Azure, GCP, RunPod, Lambda Labs)
+    *   Not recommended: Buying expensive GPUs due to rapid generational upgrades
+
+Cloud GPUs provide:
+
+*   Lower upfront cost
+*   Latest hardware
+*   On-demand scaling
+
+***
+
+## Summary
+
+CPUs specialize in **complex sequential processing**, while GPUs dominate **large-scale parallel workloads**. Their architectural differences make GPUs essential for fields like gaming, graphics rendering, scientific computing, and machine learning.
