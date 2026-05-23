@@ -195,3 +195,81 @@ Tensors = everything inside GPUs
 Overfitting/Underfitting = model quality signals
 Batch/Epoch/LR = training controls
 Your pipelines automate, monitor, and optimize all of this.
+
+
+
+ core evaluation metrics in machine learning, especially for classification models.
+
+🎯 First: Understand the Confusion Matrix
+All three metrics come from this:
+✅ Terms:
+
+TP (True Positive) → predicted YES, actually YES
+TN (True Negative) → predicted NO, actually NO
+FP (False Positive) → predicted YES, actually NO
+FN (False Negative) → predicted NO, actually YES
+
+✅ 1. Accuracy
+👉 Definition:
+Out of all predictions, how many were correct?
+
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+✅ Example:
+100 samples
+90 correct predictions
+👉 Accuracy = 90%
+
+✅ 2. Precision
+👉 Definition:
+Out of all predicted YES, how many are actually YES?
+
+Precision = TP / (TP + FP)
+
+✅ Meaning:
+👉 “When the model says YES, how often is it correct?”
+
+✅ Example:
+
+Model predicted 50 patients as sick
+Only 40 are actually sick
+👉 Precision = 40 / 50 = 80%
+
+✅ When important:
+Fraud detection
+Spam detection
+👉 You want:
+❌ Fewer false positives
+
+✅ 3. Recall (Sensitivity)
+👉 Definition:
+Out of all actual YES, how many did we correctly detect?
+Recall = TP / (TP + FN)
+✅ Meaning:
+👉 “Out of real positives, how many did we catch?”
+
+✅ Example:
+100 actual sick people
+Model detects 80
+
+👉 Recall = 80%
+✅ When important:
+Disease detection
+Safety systems
+
+👉 You want:
+❌ Fewer false negatives
+
+⚖️ Precision vs Recall (Key Insigh)
+
+Metric           Focus     
+Precision       Avoid false alarms (FP)
+Recall           Don’t miss real cases (FN)
+
+How can we increase accuracy of the model?
+
+“Improving model accuracy is primarily driven by better data quality and feature engineering rather than just changing algorithms.
+We ensure high-quality input by performing data cleaning and validation, then create meaningful features to improve model learning.
+We also handle class imbalance, perform hyperparameter tuning using Azure ML sweep jobs, and validate models using cross-validation. 
+Additionally, we experiment with multiple algorithms like
+Random Forest or XGBoost and deploy the best-performing model. In production, continuous monitoring and retraining are used to maintain accuracy over time.”
