@@ -1,0 +1,119 @@
+🎯 What is Observability in MLOps?
+👉 Observability = understanding model + system behavior in real time
+In MLOps, we monitor:
+Data → Model → API → Infrastructure
+
+Real MLOps Observability Architecture (Your Case)
+KServe Model API
+      ↓
+Dynatrace OneAgent
+      ↓
+Collect:
+  - Latency
+  - Errors
+  - Throughput
+
+Azure ML
+      ↓
+Custom metrics:
+  - Accuracy
+  - Drift
+
+ADF
+      ↓
+Logs:
+  - data quality issues
+
+
+✅ Key Observability Areas in MLOps
+🔷 1. Data Observability (Input Monitoring)
+✅ What we track
+Data drift (input distribution change)
+Missing values
+Schema changes
+Feature anomalies
+
+
+✅ Example
+Training:
+age range: 20–60
+
+Production:
+age range: 10–90 ❌
+
+👉 Model accuracy drops
+✅ With Dynatrace
+Custom metrics via API
+Logs ingestion for data validation
+Alerts on anomalies
+
+
+🔷 2. Model Performance Metrics
+✅ Core ML Metrics
+Accuracy
+Precision
+Recall
+F1-score
+
+
+✅ In production (important)
+Prediction confidence
+Error rate
+Model drift
+
+✅ Example
+Accuracy: 92% → drops to 75% ❌
+
+👉 Dynatrace triggers alert
+
+🔷 3. Prediction Monitoring
+✅ What we track
+Number of predictions
+Latency per prediction
+Failed predictions
+
+
+✅ Example metrics
+Requests/sec
+Response time
+Error %
+
+
+✅ Dynatrace strength 💪
+Dynatrace automatically tracks:
+Service → API → Request latency → Failures
+
+
+🔷 4. Infrastructure Observability
+
+✅ What we monitor
+CPU usage
+Memory usage
+Pod health (Kubernetes / KServe)
+GPU usage (if used)
+
+
+✅ Dynatrace gives:
+Full stack monitoring ✅
+Auto-detection of containers ✅
+Kubernetes insights ✅
+
+
+✅ Example alert
+CPU > 85% → scale up
+Memory leak → restart pod
+
+🔷 5. Model Drift Detection
+✅ Types
+Data drift ✅
+Concept drift ✅
+
+
+✅ What happens
+Training data ≠ Production data
+
+👉 Accuracy drops silently ❌
+✅ Dynatrace usage
+
+Custom metrics for feature distributions
+Alerts using thresholds / AI engine (Davis AI)
