@@ -1,0 +1,56 @@
+ End-to-End Flow (Your Responsibility View)
+
+1. ADF Pipeline
+   → Pull data
+   → Validate
+   → Detect PII
+   → Store in Blob
+
+2. Azure ML Pipeline
+   → Data validation
+   → Cleaning
+   → Feature engineering
+   → Preprocessing
+
+3. Training Pipeline
+   → Train model
+   → Evaluate
+   → Tune hyperparameters
+   → Register model
+
+4. Deployment
+   → Azure ML endpoint OR KServe
+
+End-to-End MLOps with Azure DevOps (Your Scenario)
+You want:
+✅ ADF orchestration
+✅ Azure ML pipelines
+✅ KServe deployment (AKS)
+✅ Fully automated via Azure DevOps CI/CD
+
+🧠 High-Level CI/CD Architecture
+
+Git Repo (code + YAML)
+        ↓
+Azure DevOps Pipeline
+   ├── CI Pipeline (Build & Validate)
+   └── CD Pipeline (Deploy)
+        ↓
+-----------------------------------
+1. ADF Pipeline Deployment
+2. Azure ML Pipeline Execution
+3. Model Registration
+4. KServe Deployment (AKS)
+
+
+[Pipeline 1 - ADF CI/CD]
+    ↓ (processed data in Blob)
+
+[Pipeline 2 - AML Data Prep]
+    ↓ (prepared dataset registered)
+
+[Pipeline 3 - AML Training]
+    ↓ (model.pkl registered)
+
+[Pipeline 4 - Deployment (KServe)]
+
