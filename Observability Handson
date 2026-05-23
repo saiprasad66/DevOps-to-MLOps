@@ -1,0 +1,104 @@
+🎯 Core Idea (IMPORTANT)
+👉 Dynatrace does NOT natively understand ML metrics
+👉 You must push custom metrics + logs into Dynatrace
+
+✅ Step 0: Setup Dynatrace Integration (dynakube file genration in dynatarce with approperiate permission get token)
+✔ Install OneAgent on AKS (KServe)
+kubectl create namespace dynatrace
+kubectl apply -f dynatrace-operator.yaml
+✅ Automatically monitors:
+Pods
+API latency
+CPU / memory
+
+✔ Get Dynatrace API Token
+Settings → Integration → Dynatrace API → Generate Token
+
+✅ Step 1: Push Custom Metrics to Dynatrace
+Dynatrace uses Metrics API
+
+✅ Python Helper (Reusable)
+import requests
+
+DT_API_URL = "https://<your-env>.live.dynatrace.com/api/v2/metrics/ingest"
+DT_API_TOKEN = "your-token"
+
+def push_metric(metric_name, value):
+    headers = {
+        "Authorization": f"Api-Token {DT_API_TOKEN}",
+        "Content-Type": "text/plain"
+    }
+
+    payload = f"{metric_name} {value}"
+
+    requests.post(DT_API_URL, data=payload, headers=headers)
+
+
+✅ ✅ 1. Accuracy / Precision / Recall / F1
+✔ Compute Metrics in Training or Inference
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+acc = accuracy_score(y_true, y_pred)
+prec = precision_score(y_true, y_pred)
+rec = recall_score(y_true, y_pred)
+f1 = f1_score(y_true, y_pred)
+
+push_metric("ml.model.accuracy", acc)
+push_metric("ml.model.precision", prec)
+push_metric("ml.model.recall", rec)
+push_metric("ml.model.f1", f1)
+
+✅ In Dynatrace Dashboard
+Create charts:
+ml.model.accuracy
+ml.model.precision
+ml.model.recall
+ml.model.f1
+
+✅ Add alert:
+accuracy < 0.85 → ALERT
+
+
+✅ ✅ 2. Data Drift (MOST IMPORTANT)
+✔ Idea:
+Compare training vs production distributions
+
+✅ Example (mean drift)
+train_mean = 50
+prod_mean = df["age"].mean()
+
+drift = abs(train_mean - prod_mean)
+
+push_metric("ml.data.drift.age", drift)
+``
+
+✅ ✅ 4. Schema Change Detection
+✔ Compare schema (columns)
+
+expected_cols = ["age", "salary", "city"]
+
+incoming_cols = list(df.columns)
+
+if expected_cols != incoming_cols:
+    push_metric("ml.data.schema_mismatch", 1)
+else:
+    push_metric("ml.data.schema_mismatch", 0)
+``
+
+✅ Alert
+schema_mismatch == 1 → CRITICAL ALERT
+
+✅ ✅ 5. Feature Anomalies
+✔ Detect outliers / anomalies
+
+import numpy as np
+
+z_score = np.abs((df["salary"] - df["salary"].mean()) / df["salary"].std())
+
+anomaly_ratio = (z_score > 3).mean()
+
+push_metric("ml.data.anomaly.salary", anomaly_ratio)
+
+✅ Alert
+anomaly_ratio > 0.1 → ALERT
